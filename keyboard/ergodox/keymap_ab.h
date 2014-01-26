@@ -1,18 +1,17 @@
 // Layers:
 // 0. English Workman
 // 1. English QWERTY
-// 2. Russian layout Диктор (with switched А-Ы)
+// 2. Russian Диктор (with switched А-Ы)
 // 3. Russian ЙЦУКЕН
-// 4. Symbols and 0,1 digits (accessible from English layout)
-// 5. Symbols and 0,1 digits (accessible from Russian layout, due to limited capacity of function's array
+// 4. Symbols and 0,1 digits (available from English layouts)
+// 5. Symbols and 0,1 digits (available from Russian layouts, due to limited capacity of function's array
 //                            some symbols aren't implemented)
-//    Reasoning about 2 symbol layers: it would be great to have symbol keys on the same keys in English and
-//    Russian layout.
 //
 // 6. Cursor keys and Copy/Paste/Cut
 // 7. Numpad
 // 8. F-keys and Teensy key
 
+//  TODO
 //  . Ukrainian letters І, Ї, Є?
 //  . Macroses for 1C?
 
@@ -247,11 +246,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * |        |      |  - _ |   *  |  |   |      |      |           |      |      |   &  |   :  |   ;  |   ’  |        |
+     * |        |      |  - _ |   *  |  |   |      |      |           |      |      |   &  |   :  |   ;  |      |        |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |   <  |   [  |   (  |  + = |      |------|           |------|      |   "  |   )  |   ]  |   >  |        |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |        |   %  |   №  |  / \ |  0   |      |      |           |      |      |   1  |   &  |   !  |   ?  |        |
+     * |        |   %  |   №  |  / \ |  0   |      |      |           |      |      |   1  |   ’  |   !  |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -270,9 +269,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  TRNS,TRNS,TRNS,
         // right hand
              TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
-             TRNS,  NO,FN18,   6,   4,FN19,TRNS,
+             TRNS,  NO,FN18,   6,   4,  NO,TRNS,
                     NO,   2,   0,FN17,FN16,TRNS,
-             TRNS,  NO,  P1,  NO,   1,   7,TRNS,
+             TRNS,  NO,  P1,FN19,   1,   7,TRNS,
                        TRNS,TRNS,TRNS,TRNS,TRNS,
         TRNS,TRNS,
         TRNS,
@@ -290,7 +289,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |      |      |      |      |      |------|           |------|      | Left | Down | Rght |      |    `   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |      |      | Copy | Pste | Cut  |      |        |
+     * |        |      |      |      |      |      |      |           |      |      | Copy | Pste | Cut  | Undo |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -301,7 +300,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         TRNS,TRNS,TRNS, TRNS,TRNS,TRNS,TRNS,
         TRNS,  NO,  NO,   NO,  NO,  NO,TRNS,
-        TRNS,  NO,  NO,   NO,  NO,  NO,
+        TRNS,  NO,  NO,   NO,TRNS,  NO,
         TRNS,  NO,  NO,   NO,  NO,  NO,TRNS,
         TRNS,TRNS,TRNS, TRNS,TRNS,
                                       TRNS,TRNS,
@@ -311,7 +310,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
              TRNS,  NO,HOME,  UP, END,  NO,TRNS,
                     NO,LEFT,DOWN,RGHT,  NO,TRNS,
-             TRNS,  NO,COPY,PASTE,CUT,  NO,TRNS,
+             TRNS,  NO,FN25,FN26,FN27,FN28,TRNS,
                        TRNS,TRNS,TRNS,TRNS,TRNS,
         TRNS,TRNS,
         TRNS,
@@ -454,7 +453,7 @@ enum function_id {
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
+    ACTION_F  UNCTION(TEENSY_KEY),                    // FN0  - Teensy key
 
     ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),         // FN1  = LShift with tap BackSpace
     ACTION_LAYER_TAP_KEY(4, KC_DEL),                // FN2  = momentary Layer4 (symbols) with tap Delete
@@ -476,18 +475,23 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),             // FN12 = Shifted [
     ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),             // FN13 = Shifted ]
 
-    ACTION_MODS_KEY(MOD_RALT, 9),                   // FN14 = Alted 9, [ in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_9),                   // FN14 = Alted 9, [ in Russian
     ACTION_MODS_KEY(MOD_RALT, KC_COMM),             // FN15 = Alted Comma, < in Russian
     ACTION_MODS_KEY(MOD_RALT, KC_DOT),              // FN16 = Alted Dot, > in Russian
-    ACTION_MODS_KEY(MOD_RALT, 0),                   // FN17 = Alted 0, ] in Russian
-    ACTION_MODS_KEY(MOD_RALT, 7),                   // FN18 = Alted 7, & in Russian
-    ACTION_MODS_KEY(MOD_RALT, 8),                   // FN19 = Alted 8, ’ in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_0),                   // FN17 = Alted 0, ] in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_7),                   // FN18 = Alted 7, & in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_8),                   // FN19 = Alted 8, ’ in Russian
     ACTION_MODS_KEY(MOD_RALT, KC_BSLS),             // FN20 = Alted Backslash, | in Russian
 
     ACTION_LAYER_SET(0, ON_BOTH),                   // FN21 - set Layer0 (Workman)
     ACTION_LAYER_SET(1, ON_BOTH),                   // FN22 - set Layer1 (QWERTY)
     ACTION_LAYER_TOGGLE(2),                         // FN23 - toggle Layer2 (Диктор), available from Layer0
     ACTION_LAYER_TOGGLE(3),                         // FN24 - toggle Layer3 (ЙЦУКЕН), available from Layer1
+
+    ACTION_MODS_KEY(MOD_LCTRL, C),                  // FN25 = COPY
+    ACTION_MODS_KEY(MOD_LCTRL, V),                  // FN26 = PASTE
+    ACTION_MODS_KEY(MOD_LCTRL, X),                  // FN27 = CUT
+    ACTION_MODS_KEY(MOD_LCTRL, Z),                  // FN28 = UNDO
 };
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
