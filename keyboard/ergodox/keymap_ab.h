@@ -453,7 +453,7 @@ enum function_id {
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_F  UNCTION(TEENSY_KEY),                    // FN0  - Teensy key
+    ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
 
     ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),         // FN1  = LShift with tap BackSpace
     ACTION_LAYER_TAP_KEY(4, KC_DEL),                // FN2  = momentary Layer4 (symbols) with tap Delete
@@ -488,10 +488,10 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_TOGGLE(2),                         // FN23 - toggle Layer2 (Диктор), available from Layer0
     ACTION_LAYER_TOGGLE(3),                         // FN24 - toggle Layer3 (ЙЦУКЕН), available from Layer1
 
-    ACTION_MODS_KEY(MOD_LCTRL, C),                  // FN25 = COPY
-    ACTION_MODS_KEY(MOD_LCTRL, V),                  // FN26 = PASTE
-    ACTION_MODS_KEY(MOD_LCTRL, X),                  // FN27 = CUT
-    ACTION_MODS_KEY(MOD_LCTRL, Z),                  // FN28 = UNDO
+    ACTION_MODS_KEY(MOD_LCTL, KC_C),                  // FN25 = COPY
+    ACTION_MODS_KEY(MOD_LCTL, KC_V),                  // FN26 = PASTE
+    ACTION_MODS_KEY(MOD_LCTL, KC_X),                  // FN27 = CUT
+    ACTION_MODS_KEY(MOD_LCTL, KC_Z),                  // FN28 = UNDO
 };
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
