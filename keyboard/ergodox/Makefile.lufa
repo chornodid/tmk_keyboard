@@ -140,3 +140,5 @@ cub: all
 ab: OPT_DEFS += -DKEYMAP_AB
 ab: all
 
+ksv: OPT_DEFS += -DKEYMAP_KSV
+ksv: all
