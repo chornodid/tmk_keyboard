@@ -17,11 +17,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * | Esc    |      |      |      |      |      | Ins  |           | Nmlck|      |      |      |      | PrScr| Pause  |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   F  |   P  |   G  | Home |           | PgUp |   J  |   L  |  U   |   Y  |  ' " |        |
+     * | Tab    |   Q  |   W  |   F  |   P  |   G  | Home |           | PgUp |   J  |   L  |  U   |   Y  |  ; ; |        |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * | Caps   |   A  |   R  |   S  | T ~L5|   D  |------|           |------|   H  |   N  |  E   |   I  |   O  |        |
      * |--------+------+------+------+------+------| End  |           | PgDn |------+------+------+------+------+--------|
-     * | +L2    |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |  ,<  | . >  |  ; : |        |
+     * | +L2    |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |  ,<  | . >  |  ' " |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |  L1  |      |      | ~L6  | LAlt |                                       | RAlt | ~L7  |      |      |      |
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -39,18 +39,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(  // Layer0
         // left hand
         ESC,  NO,  NO,  NO,  NO,  NO,  INS,
-        TAB,  Q,   D,   R,   W,   B,   HOME,
-        CAPS, A,   S,   H,   FN7, G,
-        FN23, Z,   X,   M,   C,   V,   END,
+        TAB,  Q,   W,   F,   P,   G,   HOME,
+        CAPS, A,   R,   S,   FN7, D,
+        FN23, Z,   X,   C,   V,   B,   END,
         FN22, NO,  NO,  FN5, LALT,
                                        INS, LGUI,
                                             NO,
                                   FN1, FN2, LCTL,
         // right hand
         NLCK,NO,  NO,  NO,  NO,  PSCR,  PAUS,
-        PGUP, J,   F,   U,   P,  QUOT,   NO,
-              Y,   N,   E,   O,   I,     NO,
-        PGDN, K,   L,   COMM,DOT,SCLN,    NO,
+        PGUP, J,   L,   U,   Y,  SCLN,   NO,
+              H,   N,   E,   I,   O,     NO,
+        PGDN, K,   M,   COMM,DOT,QUOT,    NO,
                    RALT,FN6, NO,  NO,    NO,
         RGUI, NO,
         NO,
@@ -402,44 +402,44 @@ enum function_id {
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
+    ACTION_FUNCTION(TEENSY_KEY),                    // FN0  - Teensy key
 
-    [1] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),         // FN1  = LShift with tap BackSpace
-    [2] = ACTION_LAYER_TAP_KEY(3, KC_DEL),                // FN2  = momentary Layer3 (symbols) with tap Delete
-    [3] = ACTION_LAYER_TAP_KEY(3, KC_ENT),                // FN3  = momentary Layer3 (symbols) with tap Enter
-    [4] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_SPC),          // FN4  = RShift with tap Space
+    ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),         // FN1  = LShift with tap BackSpace
+    ACTION_LAYER_TAP_KEY(3, KC_DEL),                // FN2  = momentary Layer3 (symbols) with tap Delete
+    ACTION_LAYER_TAP_KEY(3, KC_ENT),                // FN3  = momentary Layer3 (symbols) with tap Enter
+    ACTION_MODS_TAP_KEY(MOD_RSFT, KC_SPC),          // FN4  = RShift with tap Space
 
-    [5] = ACTION_LAYER_MOMENTARY(6),                      // FN5  = momentary Layer6 (numpad)
-    [6] = ACTION_LAYER_MOMENTARY(7),                      // FN6  = momentary Layer7 (F-keys and Teensy)
+    ACTION_LAYER_MOMENTARY(6),                      // FN5  = momentary Layer6 (numpad)
+    ACTION_LAYER_MOMENTARY(7),                      // FN6  = momentary Layer7 (F-keys and Teensy)
 
-    [7] = ACTION_LAYER_TAP_KEY(5, KC_T),                  // FN7  = momentary Layer5 (cursors and copy/paste/cut) with tap T
+    ACTION_LAYER_TAP_KEY(5, KC_T),                  // FN7  = momentary Layer5 (cursors and copy/paste/cut) with tap T
 
-    [8] = ACTION_LAYER_TAP_KEY(4, KC_DEL),                // FN8  = momentary Layer4 (symbols) with tap Delete
-    [9] = ACTION_LAYER_TAP_KEY(4, KC_ENT),                // FN9  = momentary Layer4 (symbols) with tap Enter
+    ACTION_LAYER_TAP_KEY(4, KC_DEL),                // FN8  = momentary Layer4 (symbols) with tap Delete
+    ACTION_LAYER_TAP_KEY(4, KC_ENT),                // FN9  = momentary Layer4 (symbols) with tap Enter
 
-    [10]= ACTION_MODS_KEY(MOD_LSFT, KC_SLSH),             // FN10 = Shifted Slash, comma in Russian
+    ACTION_MODS_KEY(MOD_LSFT, KC_SLSH),             // FN10 = Shifted Slash, comma in Russian
 
-    [11]= ACTION_LAYER_TAP_KEY(5, KC_F),                  // FN11 = momentary Layer5 (cursors and copy/paste/cut) with tap F, А in Russian
+    ACTION_LAYER_TAP_KEY(5, KC_F),                  // FN11 = momentary Layer5 (cursors and copy/paste/cut) with tap F, А in Russian
 
-    [12]= ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),             // FN12 = Shifted [
-    [13]= ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),             // FN13 = Shifted ]
+    ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),             // FN12 = Shifted [
+    ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),             // FN13 = Shifted ]
 
-    [14]= ACTION_MODS_KEY(MOD_RALT, KC_9),                // FN14 = Alted 9, [ in Russian
-    [15]= ACTION_MODS_KEY(MOD_RALT, KC_COMM),             // FN15 = Alted Comma, < in Russian
-    [16]= ACTION_MODS_KEY(MOD_RALT, KC_DOT),              // FN16 = Alted Dot, > in Russian
-    [17]= ACTION_MODS_KEY(MOD_RALT, KC_0),                // FN17 = Alted 0, ] in Russian
-    [18]= ACTION_MODS_KEY(MOD_RALT, KC_7),                // FN18 = Alted 7, & in Russian
-    [19]= ACTION_MODS_KEY(MOD_RALT, KC_8),                // FN19 = Alted 8, ’ in Russian
-    [20]= ACTION_MODS_KEY(MOD_RALT, KC_BSLS),             // FN20 = Alted Backslash, | in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_9),                // FN14 = Alted 9, [ in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_COMM),             // FN15 = Alted Comma, < in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_DOT),              // FN16 = Alted Dot, > in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_0),                // FN17 = Alted 0, ] in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_7),                // FN18 = Alted 7, & in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_8),                // FN19 = Alted 8, ’ in Russian
+    ACTION_MODS_KEY(MOD_RALT, KC_BSLS),             // FN20 = Alted Backslash, | in Russian
 
-    [21]= ACTION_LAYER_SET(0, ON_BOTH),                   // FN21 - set Layer0 (Colemak)
-    [22]= ACTION_LAYER_SET(1, ON_BOTH),                   // FN22 - set Layer1 (QWERTY)
-    [23]= ACTION_LAYER_TOGGLE(2),                         // FN23 - toggle Layer2 (ЙЦУКЕН), available from Layer0 and Layer1
+    ACTION_LAYER_SET(0, ON_PRESS),                   // FN21 - set Layer0 (Colemak)
+    ACTION_LAYER_SET(1, ON_PRESS),                   // FN22 - set Layer1 (QWERTY)
+    ACTION_LAYER_TOGGLE(2),                          // FN23 - toggle Layer2 (ЙЦУКЕН), available from Layer0 and Layer1
 
-    [24]= ACTION_MODS_KEY(MOD_LCTL, KC_C),                // FN24 = COPY
-    [25]= ACTION_MODS_KEY(MOD_LCTL, KC_V),                // FN25 = PASTE
-    [26]= ACTION_MODS_KEY(MOD_LCTL, KC_X),                // FN26 = CUT
-    [27]= ACTION_MODS_KEY(MOD_LCTL, KC_Z),                // FN27 = UNDO
+    ACTION_MODS_KEY(MOD_LCTL, KC_C),                // FN24 = COPY
+    ACTION_MODS_KEY(MOD_LCTL, KC_V),                // FN25 = PASTE
+    ACTION_MODS_KEY(MOD_LCTL, KC_X),                // FN26 = CUT
+    ACTION_MODS_KEY(MOD_LCTL, KC_Z),                // FN27 = UNDO
 };
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
